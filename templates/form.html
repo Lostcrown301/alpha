@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before,
+        body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        body::before {
+            background: #ff6b6b;
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            background: #4ecdc4;
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.2); }
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 680px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .form-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .required-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            margin-top: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Form Body */
+        .form-body {
+            padding: 2rem;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 1.5rem;
+        }
+
+        .flash {
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flash.success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            color: #065f46;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            color: #991b1b;
+        }
+
+        .flash i {
+            font-size: 1.2rem;
+        }
+
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.6rem;
+            color: #1e293b;
+        }
+
+        .input-label i {
+            color: #667eea;
+        }
+
+        .required-star {
+            color: #ef4444;
+        }
+
+        .optional-tag {
+            background: #f3f4f6;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            color: #4b5563;
+            margin-left: 0.6rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.85rem 1rem 0.85rem 2.8rem;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid #e9ecef;
+            border-radius: 1rem;
+            background: white;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            margin-top: -2.4rem;
+            font-size: 1.1rem;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Error styling for server-side errors */
+        .input-error {
+            border-color: #ef4444 !important;
+            background-color: #fff9f9;
+        }
+
+        .field-error {
+            color: #ef4444;
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            margin-left: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Buttons */
+        .button-group {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .submit-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .reset-btn {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            padding: 0.9rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reset-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-body {
+                padding: 1.5rem;
+            }
+            .form-header {
+                padding: 1.5rem;
+            }
+            .form-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-group {
+                flex-direction: column;
+            }
+            .submit-btn, .reset-btn {
+                width: 100%;
+            }
+        }
+</style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h1><i class="fas fa-sparkles"></i> Connect with us</h1>
+            <p>We'd love to hear from you</p>
+        </div>
+
+        <div class="form-body">
+
+            <!-- Client-side error -->
+            <div id="errorBox"></div>
+
+            <form method="POST" action="/{{ org_name }}/form">
+
+            <!-- Name -->
+            <div class="input-group">
+                <div class="input-label">
+                    Full Name *
+                </div>
+                <input type="text" name="name" required minlength="2">
+            </div>
+
+            <!-- DOB -->
+            <div class="input-group">
+                <div class="input-label">
+                    Date of Birth *
+                </div>
+                <input type="date" name="dob" required>
+            </div>
+
+            <!-- Phone -->
+            <div class="input-group">
+                <div class="input-label">
+                    Phone *
+                </div>
+                <input type="tel" name="phone" required pattern="[0-9]{10,15}">
+            </div>
+
+            <!-- Feedback -->
+            <div class="input-group">
+                <div class="input-label">
+                    Feedback
+                </div>
+                <textarea name="feedback"></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

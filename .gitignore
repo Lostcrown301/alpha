@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Database / local files (optional)
+# db_user.json
+# db_org.json
+
+# Generated QR images (IMPORTANT for your project)
+static/qr/
+
+# Temporary files
+*.tmp
+*.swp
+
+info.txt

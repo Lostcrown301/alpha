@@ -85,6 +85,7 @@ source venv/bin/activate
 
 ```
 pip install -r requirements.txt
+make a 
 ```
 
 ---
@@ -99,6 +100,8 @@ Open in browser:
 
 ```
 http://127.0.0.1:8000
+check http://127.0.0.1:8000/docs to check API working
+check http://127.0.0.1:8000/register-org it will redirect you to a QR page after registering once the QR is scanned a form will open and it will store data
 ```
 
 ---
@@ -127,9 +130,9 @@ The following are ignored:
 
 ## 🔮 Future Improvements
 
-* Use database (PostgreSQL / MongoDB)
+* Use database
 * Add authentication for admin
-* Deploy on cloud (Render / Railway)
+* Deploy on cloud (Render)
 * Add analytics dashboard
 
 ---
